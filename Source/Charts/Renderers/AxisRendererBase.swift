@@ -120,9 +120,12 @@ open class AxisRendererBase: Renderer
         {
             interval = interval < axis.granularity ? axis.granularity : interval
         }
-        
+
+        if interval == 0 { interval = 1 }
+
         // Normalize interval
-        let intervalMagnitude = ChartUtils.roundToNextSignificant(number: pow(10.0, Double(Int(log10(interval)))))
+        var intervalMagnitude = ChartUtils.roundToNextSignificant(number: pow(10.0, Double(Int(log10(interval)))))
+        if intervalMagnitude == 0 { intervalMagnitude = 1 }
         let intervalSigDigit = Int(interval / intervalMagnitude)
         if intervalSigDigit > 5
         {
